@@ -112,7 +112,12 @@ public class Ping implements Command {
    */
   @Override
   public String getHelpText() {
-    return "Ping: The syntax is \"ping roomname pingcontent\".\n";
+    return "\n\"@Dave ping @personinroom contentyouwishtosend\"\n" +
+            "Ping is a command you can use to mention everyone that are in " +
+            "a voice room. All you have to do is mention dave with the " +
+            "command ping, mention one of the people who are in the room " +
+            "and add on the link or message you would like them to see. Dave " +
+            "will remove your initial message to avoid spam.\n";
   }
 
 }

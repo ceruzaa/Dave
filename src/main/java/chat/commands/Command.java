@@ -41,7 +41,7 @@ public interface Command {
   
   /**
    * @return Returns a string containing the helptext for the specific implementation
-   * of the command, which ends with a linebreak.
+   * of the command. The helptext string should start and end with a linebreak.
    */
   public String getHelpText();
 }

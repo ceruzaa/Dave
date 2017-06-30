@@ -52,7 +52,7 @@ public class Hello implements Command {
    */
   @Override
   public String getHelpText() {
-    return "Hello: You just say hello. What were you expecting? \n";
+    return "\n\"@Dave hello\"\nYou just say hello. What were you expecting? \n";
   }
 
 }
