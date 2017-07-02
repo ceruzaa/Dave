@@ -23,10 +23,7 @@
  */
 package chat;
 
-import chat.commands.Command;
-import chat.commands.Hello;
-import chat.commands.Help;
-import chat.commands.Ping;
+import chat.commands.*;
 
 /**
  * Factory for all commands that Dave supports.
@@ -34,7 +31,9 @@ import chat.commands.Ping;
 public enum Commands {
   PING("ping", new Ping()), 
   HELLO("hello", new Hello()),
-  HELP("help", new Help());
+  HELP("help", new Help()),
+  ENROLL("enroll", new Enroll()),
+  REGISTERSERVER("registerServer", new RegisterServer());
   
   private final String _command;
   private final Command _commandHandler;
