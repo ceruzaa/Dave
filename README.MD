@@ -1,6 +1,6 @@
 # Dave the Discord bot
 
-Dave is written for the gaming community [Requiem of a pickaxe](www.requiemofapickaxe.com), but can easily be used by anyone. The ambition is to make the experience for members of large servers betters by reducing server-wide mentions and simplyfying common tasks for admins. 
+Dave is written for the gaming community [Requiem of a pickaxe](www.requiemofapickaxe.com), but can easily be used by anyone. The ambition is to make the experience for members of large servers better by reducing server-wide mentions and simplifying common tasks for administrators. 
 
 ## Available commands
 
