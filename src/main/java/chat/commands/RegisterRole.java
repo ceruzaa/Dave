@@ -11,7 +11,7 @@ import java.util.EnumSet;
 /**
  * A command that creates a new role with no permissions and assigns dave with it.
  */
-public class RegisterServer implements Command{
+public class RegisterRole implements Command {
 
     /**
      * {@inheritDoc}
@@ -21,18 +21,16 @@ public class RegisterServer implements Command{
         IChannel channel = message.getChannel();
         IUser author = message.getAuthor();
         IGuild guild = message.getGuild();
-        if(isAdministrator(author, guild))
-        {
+        if (isAdministrator(author, guild)) {
             String roleName = "";
             String[] messageContent = message.getContent().split(" ");
 
-            if(messageContent.length < 3)
-            {
+            if (messageContent.length < 3) {
                 new MessageBuilder(dave)
                         .withChannel(channel)
-                        .withContent("Hello friend, the syntax for this command is:\n "
-                            + "@Dave registerServer rolename\n"
-                            + "you appear to be missing the rolename")
+                        .withContent("Hello friend, the syntax for this command is:"
+                                + getHelpText()
+                                + "you appear to be missing the rolename")
                         .build();
                 return;
             }
@@ -41,12 +39,8 @@ public class RegisterServer implements Command{
                 roleName += messageContent[i];
             }
 
-            System.out.println("registering server: " + roleName);
-            for(IRole role : guild.getRoles())
-            {
-                System.out.println(role.getName());
-                if(role.getName().equals(roleName))
-                {
+            for (IRole role : guild.getRoles()) {
+                if (role.getName().equals(roleName)) {
                     new MessageBuilder(dave)
                             .withChannel(channel)
                             .withContent("Hello friend, the role "
@@ -56,18 +50,18 @@ public class RegisterServer implements Command{
                     return;
                 }
             }
+
             IRole role = guild.createRole();
             role.changeName(roleName);
             role.changeMentionable(true);
+            dave.getOurUser().addRole(role);
             new MessageBuilder(dave)
                     .withChannel(channel)
                     .withContent("Hello friend, the role "
                             + roleName
                             + " has been added!")
                     .build();
-        }
-        else
-        {
+        } else {
             new MessageBuilder(dave)
                     .withChannel(channel)
                     .withContent("Hello friend, you are not an admin!")
@@ -75,8 +69,7 @@ public class RegisterServer implements Command{
         }
     }
 
-    private boolean isAdministrator(IUser user, IGuild guild)
-    {
+    private boolean isAdministrator(IUser user, IGuild guild) {
         EnumSet<Permissions> permissions = user.getPermissionsForGuild(guild);
         return permissions.contains(Permissions.ADMINISTRATOR);
     }
@@ -85,5 +78,7 @@ public class RegisterServer implements Command{
      * {@inheritDoc}
      */
     @Override
-    public String getHelpText() { return "\n\"@Dave register name\"\nAdd a role with basic permissions and assign it to Dave \n"; }
+    public String getHelpText() {
+        return "\n\"@Dave registerRole name\"\nAdd a role with basic permissions and assign it to Dave \n";
+    }
 }
