@@ -1,5 +1,6 @@
-package chat.commands;
+package chat.commands.roleDistribution;
 
+import chat.commands.Command;
 import com.sun.org.apache.bcel.internal.generic.IUSHR;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.*;
@@ -9,7 +10,7 @@ import java.security.Permission;
 import java.util.EnumSet;
 
 /**
- * A command that creates a new role with no permissions and assigns dave with it.
+ * A command that creates a new role with no permissions and assigns it to dave.
  */
 public class RegisterRole implements Command {
 

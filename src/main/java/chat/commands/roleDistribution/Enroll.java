@@ -21,8 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package chat.commands;
+package chat.commands.roleDistribution;
 
+import chat.commands.Command;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.MessageBuilder;
@@ -61,6 +62,7 @@ public class Enroll implements Command {
         if (role.getPermissions().contains(Permissions.ADMINISTRATOR)) {
           String rolesString = roles.stream()
                   .filter(specificRole -> !specificRole.getPermissions().contains(Permissions.ADMINISTRATOR) )
+                  .skip(1)
                   .map(o -> o.getName().replace('@',' '))
                   .collect(Collectors.joining(", "));
           new MessageBuilder(dave)

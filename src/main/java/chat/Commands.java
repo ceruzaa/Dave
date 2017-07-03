@@ -24,6 +24,9 @@
 package chat;
 
 import chat.commands.*;
+import chat.commands.roleDistribution.Enroll;
+import chat.commands.roleDistribution.RegisterRole;
+import chat.commands.roleDistribution.Roles;
 
 /**
  * Factory for all commands that Dave supports.
