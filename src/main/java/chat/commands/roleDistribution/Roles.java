@@ -2,10 +2,13 @@ package chat.commands.roleDistribution;
 
 import chat.commands.Command;
 import sx.blah.discord.api.IDiscordClient;
+import sx.blah.discord.handle.impl.obj.User;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.MessageBuilder;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 /*
@@ -17,16 +20,32 @@ public class Roles implements Command {
    */
   @Override
   public void processCommand(IDiscordClient dave, IMessage message) {
-    String rolesString = dave.getRoles().stream()
-            .filter(specificRole -> !specificRole.getPermissions().contains(Permissions.ADMINISTRATOR))
-            .skip(1)
-            .map(o -> o.getName().replace('@', ' '))
-            .collect(Collectors.joining(", "));
-    new MessageBuilder(dave)
-            .withChannel(message.getChannel())
-            .withContent("Hello friend, The roles I can distribute are:\n "
-                    + rolesString)
-            .build();
+    String[] messageContent = message.getContent().split(" ");
+    List<IUser> mentionedUsers = message.getMentions();
+    if (mentionedUsers.size() > 1) {
+      IUser user = mentionedUsers.get(0);
+      String rolesString = user.getRolesForGuild(message.getGuild()).stream()
+              .map(role -> role.toString())
+              .collect(Collectors.joining(", "));
+
+      new MessageBuilder(dave)
+              .withChannel(message.getChannel())
+              .withContent(user
+                      + " Has the roles: \n"
+                      + rolesString)
+              .build();
+    } else {
+      String rolesString = dave.getRoles().stream()
+              .filter(specificRole -> !specificRole.getPermissions().contains(Permissions.ADMINISTRATOR))
+              .skip(1)
+              .map(o -> o.getName().replace('@', ' '))
+              .collect(Collectors.joining(", "));
+      new MessageBuilder(dave)
+              .withChannel(message.getChannel())
+              .withContent("Hello friend, The roles I can distribute are:\n "
+                      + rolesString)
+              .build();
+    }
   }
 
   /**
