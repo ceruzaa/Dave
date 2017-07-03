@@ -9,7 +9,9 @@ In order to be in line with how Discord normally works, Dave will only respond t
  * Ping "@Dave ping @personinchannel content" allows the user to mention everyone in a specific voice channel without having to type out all of their names. All you have to do is mention one person that is in the channel at the time.  
  * Hello "@Dave hello" is a simple greetings command
  * Help "@Dave help" prints out a list of all commands available.
-
+ * Help "@Dave enroll role" allows a user to add one of his roles to the role pool for distribution.
+ * Help "@Dave registerRole" creates a new role with no permissions and assigns it to dave.
+ * Help "@Dave help" prints out a list of all commands available.
 
 ### What are we working on right now?
 
