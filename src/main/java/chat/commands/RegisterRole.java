@@ -13,72 +13,72 @@ import java.util.EnumSet;
  */
 public class RegisterRole implements Command {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void processCommand(IDiscordClient dave, IMessage message) {
-        IChannel channel = message.getChannel();
-        IUser author = message.getAuthor();
-        IGuild guild = message.getGuild();
-        if (isAdministrator(author, guild)) {
-            String roleName = "";
-            String[] messageContent = message.getContent().split(" ");
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void processCommand(IDiscordClient dave, IMessage message) {
+    IChannel channel = message.getChannel();
+    IUser author = message.getAuthor();
+    IGuild guild = message.getGuild();
+    if (isAdministrator(author, guild)) {
+      String roleName = "";
+      String[] messageContent = message.getContent().split(" ");
 
-            if (messageContent.length < 3) {
-                new MessageBuilder(dave)
-                        .withChannel(channel)
-                        .withContent("Hello friend, the syntax for this command is:"
-                                + getHelpText()
-                                + "you appear to be missing the rolename")
-                        .build();
-                return;
-            }
+      if (messageContent.length < 3) {
+        new MessageBuilder(dave)
+                .withChannel(channel)
+                .withContent("Hello friend, the syntax for this command is:"
+                        + getHelpText()
+                        + "you appear to be missing the rolename")
+                .build();
+        return;
+      }
 
-            for (int i = 2; i < messageContent.length; i++) {
-                roleName += messageContent[i];
-            }
+      for (int i = 2; i < messageContent.length; i++) {
+        roleName += messageContent[i];
+      }
 
-            for (IRole role : guild.getRoles()) {
-                if (role.getName().equals(roleName)) {
-                    new MessageBuilder(dave)
-                            .withChannel(channel)
-                            .withContent("Hello friend, the role "
-                                    + roleName
-                                    + " already exists!")
-                            .build();
-                    return;
-                }
-            }
-
-            IRole role = guild.createRole();
-            role.changeName(roleName);
-            role.changeMentionable(true);
-            dave.getOurUser().addRole(role);
-            new MessageBuilder(dave)
-                    .withChannel(channel)
-                    .withContent("Hello friend, the role "
-                            + roleName
-                            + " has been added!")
-                    .build();
-        } else {
-            new MessageBuilder(dave)
-                    .withChannel(channel)
-                    .withContent("Hello friend, you are not an admin!")
-                    .build();
+      for (IRole role : guild.getRoles()) {
+        if (role.getName().equals(roleName)) {
+          new MessageBuilder(dave)
+                  .withChannel(channel)
+                  .withContent("Hello friend, the role "
+                          + roleName
+                          + " already exists!")
+                  .build();
+          return;
         }
-    }
+      }
 
-    private boolean isAdministrator(IUser user, IGuild guild) {
-        EnumSet<Permissions> permissions = user.getPermissionsForGuild(guild);
-        return permissions.contains(Permissions.ADMINISTRATOR);
+      IRole role = guild.createRole();
+      role.changeName(roleName);
+      role.changeMentionable(true);
+      dave.getOurUser().addRole(role);
+      new MessageBuilder(dave)
+              .withChannel(channel)
+              .withContent("Hello friend, the role "
+                      + roleName
+                      + " has been added!")
+              .build();
+    } else {
+      new MessageBuilder(dave)
+              .withChannel(channel)
+              .withContent("Hello friend, you are not an admin!")
+              .build();
     }
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getHelpText() {
-        return "\n\"@Dave registerRole name\"\nAdd a role with basic permissions and assign it to Dave \n";
-    }
+  private boolean isAdministrator(IUser user, IGuild guild) {
+    EnumSet<Permissions> permissions = user.getPermissionsForGuild(guild);
+    return permissions.contains(Permissions.ADMINISTRATOR);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getHelpText() {
+    return "\n\"@Dave registerRole name\"\nAdd a role with basic permissions and assign it to Dave \n";
+  }
 }
