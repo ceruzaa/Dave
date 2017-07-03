@@ -33,7 +33,8 @@ public enum Commands {
   HELLO("hello", new Hello()),
   HELP("help", new Help()),
   ENROLL("enroll", new Enroll()),
-  REGISTERROLE("registerRole", new RegisterRole());
+  REGISTERROLE("registerRole", new RegisterRole()),
+  ROLES("roles", new Roles());
   
   private final String _command;
   private final Command _commandHandler;
