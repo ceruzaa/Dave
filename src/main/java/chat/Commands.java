@@ -24,6 +24,7 @@
 package chat;
 
 import chat.commands.*;
+import chat.commands.roleDistribution.DeleteRole;
 import chat.commands.roleDistribution.Enroll;
 import chat.commands.roleDistribution.RegisterRole;
 import chat.commands.roleDistribution.Roles;
@@ -37,7 +38,8 @@ public enum Commands {
   HELP("help", new Help()),
   ENROLL("enroll", new Enroll()),
   REGISTERROLE("registerRole", new RegisterRole()),
-  ROLES("roles", new Roles());
+  ROLES("roles", new Roles()),
+  DELETEROLE("deleterole", new DeleteRole());
   
   private final String _command;
   private final Command _commandHandler;
