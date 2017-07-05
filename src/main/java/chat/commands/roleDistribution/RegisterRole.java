@@ -29,7 +29,7 @@ public class RegisterRole implements Command {
       if (messageContent.length < 3) {
         new MessageBuilder(dave)
                 .withChannel(channel)
-                .withContent("Hello friend, the syntax for this command is:"
+                .withContent("the syntax for this command is:"
                         + getHelpText()
                         + "you appear to be missing the rolename")
                 .build();
@@ -44,7 +44,7 @@ public class RegisterRole implements Command {
         if (role.getName().equals(roleName)) {
           new MessageBuilder(dave)
                   .withChannel(channel)
-                  .withContent("Hello friend, the role "
+                  .withContent("the role "
                           + roleName
                           + " already exists!")
                   .build();
@@ -58,14 +58,14 @@ public class RegisterRole implements Command {
       dave.getOurUser().addRole(role);
       new MessageBuilder(dave)
               .withChannel(channel)
-              .withContent("Hello friend, the role "
+              .withContent("the role "
                       + roleName
                       + " has been added!")
               .build();
     } else {
       new MessageBuilder(dave)
               .withChannel(channel)
-              .withContent("Hello friend, you are not an admin!")
+              .withContent("you are not an admin!")
               .build();
     }
   }

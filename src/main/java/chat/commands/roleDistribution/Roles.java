@@ -31,7 +31,7 @@ public class Roles implements Command {
       new MessageBuilder(dave)
               .withChannel(message.getChannel())
               .withContent(user
-                      + " Has the roles: \n"
+                      + " has the roles: \n"
                       + rolesString)
               .build();
     } else {
@@ -42,7 +42,7 @@ public class Roles implements Command {
               .collect(Collectors.joining(", "));
       new MessageBuilder(dave)
               .withChannel(message.getChannel())
-              .withContent("Hello friend, The roles I can distribute are:\n "
+              .withContent("The roles I can distribute are:\n "
                       + rolesString)
               .build();
     }

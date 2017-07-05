@@ -51,7 +51,7 @@ public class Enroll implements Command {
     } else {
       new MessageBuilder(dave)
               .withChannel(channel)
-              .withContent("Hello friend, it seems you haven't given me a role "
+              .withContent("It seems you haven't given me a role "
                       + "\n the syntax for this command is: "
                       + getHelpText())
               .build();
@@ -67,7 +67,7 @@ public class Enroll implements Command {
                   .collect(Collectors.joining(", "));
           new MessageBuilder(dave)
                   .withChannel(channel)
-                  .withContent("Hello friend, I don't hand out administrator roles,"
+                  .withContent("I don't hand out administrator roles,"
                           + "please pick a different role. \n The roles I can distribute are: \n"
                           + rolesString)
                   .build();
@@ -75,7 +75,7 @@ public class Enroll implements Command {
           message.getAuthor().addRole(role);
           new MessageBuilder(dave)
                   .withChannel(channel)
-                  .withContent("Hello friend, I have assigned you the role "
+                  .withContent("I have assigned you the role "
                           + roleName)
                   .build();
         }
