@@ -25,7 +25,7 @@ public class Roles implements Command {
     if (mentionedUsers.size() > 1) {
       IUser user = mentionedUsers.get(0);
       String rolesString = user.getRolesForGuild(message.getGuild()).stream()
-              .map(role -> role.toString())
+              .map(role -> role.getName().replace('@', ' '))
               .collect(Collectors.joining(", "));
 
       new MessageBuilder(dave)
