@@ -6,8 +6,10 @@ import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.MessageBuilder;
 
+import javax.management.relation.Role;
 import java.security.Permission;
 import java.util.EnumSet;
+import java.util.Optional;
 
 /**
  * A command that creates a new role with no permissions and assigns it to dave.
@@ -41,12 +43,15 @@ public class RegisterRole implements Command {
       }
 
       final String finalRoleName = roleName;
-      IRole role = guild.getRoles()
+      Optional<IRole> hasRrole = guild.getRoles()
               .stream()
-              .filter(r -> r.getName().equals(finalRoleName))
-              .findFirst()
-              .get();
+              .filter(r -> r.getName().equalsIgnoreCase(finalRoleName))
+              .findFirst();
 
+      IRole role = null;
+      if(hasRrole.isPresent()){
+        role = hasRrole.get();
+      }
       if (role != null) {
         new MessageBuilder(dave)
                 .withChannel(channel)
