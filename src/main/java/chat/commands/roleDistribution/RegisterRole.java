@@ -40,22 +40,27 @@ public class RegisterRole implements Command {
         roleName += messageContent[i];
       }
 
-      for (IRole role : guild.getRoles()) {
-        if (role.getName().equals(roleName)) {
-          new MessageBuilder(dave)
-                  .withChannel(channel)
-                  .withContent("the role "
-                          + roleName
-                          + " already exists!")
-                  .build();
-          return;
-        }
+      final String finalRoleName = roleName;
+      IRole role = guild.getRoles()
+              .stream()
+              .filter(r -> r.getName().equals(finalRoleName))
+              .findFirst()
+              .get();
+
+      if (role != null) {
+        new MessageBuilder(dave)
+                .withChannel(channel)
+                .withContent("the role "
+                        + roleName
+                        + " already exists!")
+                .build();
+        return;
       }
 
-      IRole role = guild.createRole();
-      role.changeName(roleName);
-      role.changeMentionable(true);
-      dave.getOurUser().addRole(role);
+      IRole newRole = guild.createRole();
+      newRole.changeName(finalRoleName);
+      newRole.changeMentionable(true);
+      dave.getOurUser().addRole(newRole);
       new MessageBuilder(dave)
               .withChannel(channel)
               .withContent("the role "
