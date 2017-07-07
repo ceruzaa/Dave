@@ -55,11 +55,12 @@ public class RegisterRole implements Command {
         role = hasRrole.get();
       }
       if (role != null) {
+        dave.getOurUser().addRole(role);
         new MessageBuilder(dave)
                 .withChannel(channel)
                 .withContent("the role "
                         + roleName
-                        + " already exists!")
+                        + " has been added to my pool of roles to distribute.")
                 .build();
         return;
       }
