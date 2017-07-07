@@ -1,8 +1,7 @@
-package chat.commands.roleDistribution;
+package chat.commands.role_distribution;
 
 import chat.commands.Command;
 import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.handle.impl.obj.User;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.Permissions;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 /*
  * Dave replies with a list of his roles that he can distribute with the enroll command
  */
-public class Roles implements Command {
+public class DisplayRoles implements Command {
   /**
    * {@inheritDoc}
    */

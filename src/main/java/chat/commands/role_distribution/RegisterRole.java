@@ -1,13 +1,15 @@
-package chat.commands.roleDistribution;
+package chat.commands.role_distribution;
 
 import chat.commands.Command;
-import com.sun.org.apache.bcel.internal.generic.IUSHR;
 import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.handle.obj.*;
+import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IGuild;
+import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IRole;
+import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.MessageBuilder;
 
-import javax.management.relation.Role;
-import java.security.Permission;
 import java.util.EnumSet;
 import java.util.Optional;
 

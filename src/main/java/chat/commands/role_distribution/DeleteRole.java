@@ -1,16 +1,20 @@
-package chat.commands.roleDistribution;
+package chat.commands.role_distribution;
 
 import chat.commands.Command;
 import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.handle.obj.*;
+import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IGuild;
+import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IRole;
+import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.MessageBuilder;
 
-import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.List;
 
 /**
- * Created by Dries on 5/07/2017.
+ * DeleteRole is a command that allows an admin to remove a role from Dave's role pool.
+ * Doing this will remove this role from his pool of roles to distribute.
  */
 public class DeleteRole implements Command {
 
@@ -48,8 +52,7 @@ public class DeleteRole implements Command {
         new MessageBuilder(dave)
                 .withChannel(channel)
                 .withContent("I couldn't find the role "
-                        + roleName
-                        + ".")
+                        + roleName + ".")
                 .build();
       } else if (role.getPermissions().contains(Permissions.ADMINISTRATOR)) {
         new MessageBuilder(dave)
@@ -64,13 +67,13 @@ public class DeleteRole implements Command {
                 .withChannel(channel)
                 .withContent("The role "
                         + roleName
-                        + " has been removed from my roles to distribute.")
+                        + " has been removed.")
                 .build();
       }
     } else {
       new MessageBuilder(dave)
               .withChannel(channel)
-              .withContent("This command requires admin permission to run!")
+              .withContent("Only an admin can run this command!")
               .build();
     }
   }
