@@ -3,11 +3,9 @@ package chat.commands.role_distribution;
 import chat.commands.Command;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.MessageBuilder;
 
 /**
@@ -48,9 +46,8 @@ public class Disenroll implements Command{
         author.removeRole(role);
         new MessageBuilder(dave)
                 .withChannel(channel)
-                .withContent("The role "
-                        + roleName
-                        + " has been removed.")
+                .withContent("You have been unassigned the role: "
+                        + roleName)
                 .build();
       }
     }
