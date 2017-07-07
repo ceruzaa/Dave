@@ -27,14 +27,22 @@ import chat.commands.Command;
 import chat.commands.Hello;
 import chat.commands.Help;
 import chat.commands.Ping;
+import chat.commands.role_distribution.DeleteRole;
+import chat.commands.role_distribution.Enroll;
+import chat.commands.role_distribution.RegisterRole;
+import chat.commands.role_distribution.DisplayRoles;
 
 /**
  * Factory for all commands that Dave supports.
  */
 public enum Commands {
-  PING("ping", new Ping()), 
+  PING("ping", new Ping()),
   HELLO("hello", new Hello()),
-  HELP("help", new Help());
+  HELP("help", new Help()),
+  ENROLL("enroll", new Enroll()),
+  REGISTERROLE("registerRole", new RegisterRole()),
+  ROLES("roles", new DisplayRoles()),
+  DELETEROLE("deleterole", new DeleteRole());
   
   private final String _command;
   private final Command _commandHandler;

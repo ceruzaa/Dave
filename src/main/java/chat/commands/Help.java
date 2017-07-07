@@ -64,7 +64,7 @@ public class Help implements Command {
    */
   @Override
   public String getHelpText() {
-    return "\n\"@Dave help\" - Displays a list of all available commands \n";
+    return "\n\"@Dave help\"\n - Displays a list of all available commands \n";
   }
 
 }
