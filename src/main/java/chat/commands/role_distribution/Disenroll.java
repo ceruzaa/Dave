@@ -9,10 +9,13 @@ import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.MessageBuilder;
 
 /**
- * Created by Dries on 7/07/2017.
+ * Allows a user to unsubscribe from a specific role.
  */
-public class Disenroll implements Command{
+public class Disenroll implements Command {
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void processCommand(IDiscordClient dave, IMessage message) {
     IChannel channel = message.getChannel();
@@ -26,9 +29,7 @@ public class Disenroll implements Command{
                       + getHelpText())
               .build();
       return;
-    }
-    else
-    {
+    } else {
       final String roleName = messageContent[2];
       IRole role = dave.getRoles()
               .stream()
@@ -42,7 +43,7 @@ public class Disenroll implements Command{
                 .withContent("I couldn't find the role "
                         + roleName + ".")
                 .build();
-      } else{
+      } else {
         author.removeRole(role);
         new MessageBuilder(dave)
                 .withChannel(channel)
@@ -53,6 +54,9 @@ public class Disenroll implements Command{
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getHelpText() {
     return "\n\"@Dave disenroll roleName\"\nRemove a role from your own role pool. \n";
