@@ -28,6 +28,7 @@ import chat.commands.Hello;
 import chat.commands.Help;
 import chat.commands.Ping;
 import chat.commands.role_distribution.DeleteRole;
+import chat.commands.role_distribution.Disenroll;
 import chat.commands.role_distribution.Enroll;
 import chat.commands.role_distribution.RegisterRole;
 import chat.commands.role_distribution.DisplayRoles;
@@ -42,7 +43,8 @@ public enum Commands {
   ENROLL("enroll", new Enroll()),
   REGISTERROLE("registerRole", new RegisterRole()),
   ROLES("roles", new DisplayRoles()),
-  DELETEROLE("deleterole", new DeleteRole());
+  DELETEROLE("deleterole", new DeleteRole()),
+  DISENROLL("disenroll", new Disenroll());
   
   private final String _command;
   private final Command _commandHandler;
