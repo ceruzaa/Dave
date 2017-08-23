@@ -1,4 +1,4 @@
-package chat.commands.role_distribution;
+package chat.commands.roledistribution;
 
 import chat.commands.Command;
 import sx.blah.discord.api.IDiscordClient;
@@ -7,16 +7,13 @@ import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.handle.obj.Permissions;
-import sx.blah.discord.util.MessageBuilder;
-
-import java.util.EnumSet;
 import java.util.Optional;
+import static util.MessageUtils.sendMessage;
 
 /**
  * A command that creates a new role with no permissions and assigns it to dave.
  */
-public class RegisterRole implements Command {
+public class RegisterRole extends Command {
 
   /**
    * {@inheritDoc}
@@ -31,12 +28,8 @@ public class RegisterRole implements Command {
       String[] messageContent = message.getContent().split(" ");
 
       if (messageContent.length < 3) {
-        new MessageBuilder(dave)
-                .withChannel(channel)
-                .withContent("the syntax for this command is:"
-                        + getHelpText()
-                        + "you appear to be missing the rolename")
-                .build();
+        sendMessage(dave, channel, "the syntax for this command is:" + getHelpText()
+                + "you appear to be missing the rolename");
         return;
       }
 
@@ -56,12 +49,8 @@ public class RegisterRole implements Command {
       }
       if (role != null) {
         dave.getOurUser().addRole(role);
-        new MessageBuilder(dave)
-                .withChannel(channel)
-                .withContent("the role "
-                        + roleName
-                        + " has been added to my pool of roles to distribute.")
-                .build();
+        sendMessage(dave, channel, "the role " + roleName + " has been added to my pool of roles " 
+                + "to distribute.");
         return;
       }
 
@@ -69,23 +58,10 @@ public class RegisterRole implements Command {
       newRole.changeName(finalRoleName);
       newRole.changeMentionable(true);
       dave.getOurUser().addRole(newRole);
-      new MessageBuilder(dave)
-              .withChannel(channel)
-              .withContent("the role "
-                      + roleName
-                      + " has been added!")
-              .build();
+      sendMessage(dave, channel, "the role " + roleName + " has been added!");
     } else {
-      new MessageBuilder(dave)
-              .withChannel(channel)
-              .withContent("you are not an admin!")
-              .build();
+      sendMessage(dave, channel, "you are not an admin!");
     }
-  }
-
-  private boolean isAdministrator(IUser user, IGuild guild) {
-    EnumSet<Permissions> permissions = user.getPermissionsForGuild(guild);
-    return permissions.contains(Permissions.ADMINISTRATOR);
   }
 
   /**

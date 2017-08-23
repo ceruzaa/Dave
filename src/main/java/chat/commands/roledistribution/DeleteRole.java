@@ -1,4 +1,4 @@
-package chat.commands.role_distribution;
+package chat.commands.roledistribution;
 
 import chat.commands.Command;
 import sx.blah.discord.api.IDiscordClient;
@@ -8,15 +8,14 @@ import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.Permissions;
-import sx.blah.discord.util.MessageBuilder;
 
-import java.util.EnumSet;
+import static util.MessageUtils.sendMessage;
 
 /**
  * DeleteRole is a command that allows an admin to remove a role from Dave's role pool.
  * Doing this will remove this role from his pool of roles to distribute.
  */
-public class DeleteRole implements Command {
+public class DeleteRole extends Command {
 
   /**
    * {@inheritDoc}
@@ -32,11 +31,7 @@ public class DeleteRole implements Command {
       String[] messageContent = message.getContent().split(" ");
 
       if (messageContent.length != 3) {
-        new MessageBuilder(dave)
-                .withChannel(channel)
-                .withContent("the syntax for this command is:"
-                        + getHelpText())
-                .build();
+        sendMessage(dave, channel, "the syntax for this command is:" + getHelpText());
         return;
       }
 
@@ -49,38 +44,17 @@ public class DeleteRole implements Command {
               .get();
 
       if (role == null) {
-        new MessageBuilder(dave)
-                .withChannel(channel)
-                .withContent("I couldn't find the role "
-                        + roleName + ".")
-                .build();
+        sendMessage(dave, channel, "I couldn't find the role " + roleName + ".");
       } else if (role.getPermissions().contains(Permissions.ADMINISTRATOR)) {
-        new MessageBuilder(dave)
-                .withChannel(channel)
-                .withContent("The role "
-                        + roleName
-                        + " is an admin role, which I can not delete.")
-                .build();
+        sendMessage(dave, channel, "The role " + roleName + " is an admin role, "
+                + "which I can not delete.");
       } else{
         dave.getOurUser().removeRole(role);
-        new MessageBuilder(dave)
-                .withChannel(channel)
-                .withContent("The role "
-                        + roleName
-                        + " has been removed.")
-                .build();
+        sendMessage(dave, channel, "The role " + roleName + " has been removed.");
       }
     } else {
-      new MessageBuilder(dave)
-              .withChannel(channel)
-              .withContent("Only an admin can run this command!")
-              .build();
+      sendMessage(dave, channel, "Only an admin can run this command!");
     }
-  }
-
-  private boolean isAdministrator(IUser user, IGuild guild) {
-    EnumSet<Permissions> permissions = user.getPermissionsForGuild(guild);
-    return permissions.contains(Permissions.ADMINISTRATOR);
   }
 
   /**

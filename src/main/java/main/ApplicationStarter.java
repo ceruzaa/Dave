@@ -74,7 +74,6 @@ public class ApplicationStarter {
   
   /**
    * Returns the main Dave object if login is successful. If not, the application
-   * 
    * is shut down.
    * @param token
    * @return the discord client
