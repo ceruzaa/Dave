@@ -1,4 +1,4 @@
-package chat.commands.role_distribution;
+package chat.commands.roledistribution;
 
 import chat.commands.Command;
 import sx.blah.discord.api.IDiscordClient;
@@ -6,12 +6,12 @@ import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.MessageBuilder;
+import static util.MessageUtils.sendMessage;
 
 /**
  * Allows a user to unsubscribe from a specific role.
  */
-public class Disenroll implements Command {
+public class Disenroll extends Command {
 
   /**
    * {@inheritDoc}
@@ -23,12 +23,7 @@ public class Disenroll implements Command {
     String[] messageContent = message.getContent().split(" ");
 
     if (messageContent.length != 3) {
-      new MessageBuilder(dave)
-              .withChannel(channel)
-              .withContent("the syntax for this command is:"
-                      + getHelpText())
-              .build();
-      return;
+      sendMessage(dave, channel, "the syntax for this command is:" + getHelpText());
     } else {
       final String roleName = messageContent[2];
       IRole role = dave.getRoles()
@@ -38,18 +33,10 @@ public class Disenroll implements Command {
               .get();
 
       if (role == null) {
-        new MessageBuilder(dave)
-                .withChannel(channel)
-                .withContent("I couldn't find the role "
-                        + roleName + ".")
-                .build();
+        sendMessage(dave, channel, "I couldn't find the role " + roleName + ".");
       } else {
         author.removeRole(role);
-        new MessageBuilder(dave)
-                .withChannel(channel)
-                .withContent("You have been unassigned the role: "
-                        + roleName)
-                .build();
+        sendMessage(dave, channel, "You have been unassigned the role: " + roleName);
       }
     }
   }

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package chat.commands.role_distribution;
+package chat.commands.roledistribution;
 
 import chat.commands.Command;
 import sx.blah.discord.api.IDiscordClient;
@@ -29,16 +29,16 @@ import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.Permissions;
-import sx.blah.discord.util.MessageBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import static util.MessageUtils.sendMessage;
 
 /**
  * Enroll is a command that allows a user to add one of his roles
  * to the role pool for distribution.
  */
-public class Enroll implements Command {
+public class Enroll extends Command {
   /**
    * {@inheritDoc}
    */
@@ -52,35 +52,24 @@ public class Enroll implements Command {
     if (messageContent[2] != null) {
       roleName = messageContent[2];
     } else {
-      new MessageBuilder(dave)
-              .withChannel(channel)
-              .withContent("It seems you haven't given me a role "
-                      + "\n the syntax for this command is: "
-                      + getHelpText())
-              .build();
+      sendMessage(dave, channel, "It seems you haven't given me a role \n the syntax for this " 
+              + "command is: " + getHelpText());
     }
 
     for (IRole role : roles) {
       if (role.getName().equalsIgnoreCase(roleName)) {
         if (role.getPermissions().contains(Permissions.ADMINISTRATOR)) {
           String rolesString = roles.stream()
-                  .filter(specificRole -> !specificRole.getPermissions().contains(Permissions.ADMINISTRATOR) )
+                  .filter(specificRole -> !specificRole.getPermissions()
+                          .contains(Permissions.ADMINISTRATOR) )
                   .skip(1)
                   .map(o -> o.getName().replace('@',' '))
                   .collect(Collectors.joining(", "));
-          new MessageBuilder(dave)
-                  .withChannel(channel)
-                  .withContent("I don't hand out administrator roles,"
-                          + "please pick a different role. \n The roles I can distribute are: \n"
-                          + rolesString)
-                  .build();
+          sendMessage(dave, channel, "I don't hand out administrator roles, please pick a different"
+                  + " role. \n The roles I can distribute are: \n" + rolesString);
         } else {
           message.getAuthor().addRole(role);
-          new MessageBuilder(dave)
-                  .withChannel(channel)
-                  .withContent("I have assigned you the role "
-                          + roleName)
-                  .build();
+          sendMessage(dave, channel, "I have assigned you the role " + roleName);
         }
       }
     }

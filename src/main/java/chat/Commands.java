@@ -27,11 +27,11 @@ import chat.commands.Command;
 import chat.commands.Hello;
 import chat.commands.Help;
 import chat.commands.Ping;
-import chat.commands.role_distribution.DeleteRole;
-import chat.commands.role_distribution.Disenroll;
-import chat.commands.role_distribution.Enroll;
-import chat.commands.role_distribution.RegisterRole;
-import chat.commands.role_distribution.DisplayRoles;
+import chat.commands.roledistribution.DeleteRole;
+import chat.commands.roledistribution.Disenroll;
+import chat.commands.roledistribution.Enroll;
+import chat.commands.roledistribution.RegisterRole;
+import chat.commands.roledistribution.DisplayRoles;
 
 /**
  * Factory for all commands that Dave supports.

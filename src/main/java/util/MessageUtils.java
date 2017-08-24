@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 Magnus Aronsson <magnusgoranaronsson@gmail.com>
+ * Copyright 2017 ceruza.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,47 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package chat.commands;
+package util;
 
-import chat.Commands;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.handle.obj.IMessage;
-import static util.MessageUtils.sendMessage;
+import sx.blah.discord.util.MessageBuilder;
 
 /**
- * Help is a command that sends a message with a list detailing all the commands
- * Dave supports with a detailed explanation of how it is used.
+ *
+ * @author ceruza
  */
-public class Help extends Command {
-  
-  /**
-   * {@inheritDoc} 
-   */
-  @Override
-  public void processCommand(IDiscordClient dave, IMessage message) {
-    IChannel channel = message.getChannel();
-
-    String content = "Dave will respond to a command if you "
-            + "mention him and then type in the command. \n";
-    
-    for (Commands command : Commands.values()) {
-      content += command.getHandler().getHelpText();
-    }
-
-    content += "\nIf you want to request a new feature, or report a bug, "
-            + "please use the issue tracker on github!\n" +
-            "https://github.com/ceruzaa/Dave \n";
-    
-    sendMessage(dave, channel, content);
-  }
+public class MessageUtils {
 
   /**
-   * {@inheritDoc}
+   * 
+   * @param dave
+   * @param chan
+   * @param msg 
    */
-  @Override
-  public String getHelpText() {
-    return "\n\"@Dave help\"\n - Displays a list of all available commands \n";
+  public static void sendMessage(IDiscordClient dave, IChannel chan, String msg) {
+    new MessageBuilder(dave)
+            .withChannel(chan)
+            .withContent(msg)
+            .build();
   }
-
 }

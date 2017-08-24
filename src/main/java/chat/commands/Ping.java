@@ -24,7 +24,6 @@
 package chat.commands;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
@@ -32,9 +31,9 @@ import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
 import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.MessageBuilder;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
+import static util.MessageUtils.sendMessage;
 
 /**
  * Ping is a command command allowing users in discord chat to mention all users
@@ -42,7 +41,7 @@ import sx.blah.discord.util.RateLimitException;
  * out all of their individual names. The new message replaces the old one so
  * the old one is removed to reduce spam.
  */
-public class Ping implements Command {
+public class Ping extends Command {
 
   /**
    * {@inheritDoc}
@@ -91,10 +90,7 @@ public class Ping implements Command {
                 + "That person is not in voice chat.";
       }
 
-      new MessageBuilder(dave)
-              .withChannel(channel)
-              .withContent(content)
-              .build();
+      sendMessage(dave, channel, content);
     }
     catch (RateLimitException e) {
       System.err.print("Sending messages too quickly!");

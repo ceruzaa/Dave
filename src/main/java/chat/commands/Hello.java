@@ -26,13 +26,13 @@ package chat.commands;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
-import sx.blah.discord.util.MessageBuilder;
+import static util.MessageUtils.sendMessage;
 
 /**
  * Hello is a command that returns a friendly message to anyone who wishes to
  * greet Dave.
  */
-public class Hello implements Command {
+public class Hello extends Command {
 
   /**
    * {@inheritDoc}
@@ -41,10 +41,7 @@ public class Hello implements Command {
   public void processCommand(IDiscordClient dave, IMessage message) {
     IChannel channel = message.getChannel();
 
-    new MessageBuilder(dave)
-            .withChannel(channel)
-            .withContent("Hello friend, thanks for greeting me!")
-            .build();
+    sendMessage(dave, channel, "Hello friend, thanks for greeting me!");
   }
 
   /**

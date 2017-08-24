@@ -23,25 +23,39 @@
  */
 package chat.commands;
 
+import java.util.EnumSet;
 import sx.blah.discord.api.IDiscordClient;
+import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.handle.obj.Permissions;
 
 /**
  *
  * @author ceruza
  */
-public interface Command {
+public abstract class Command {
   
   /**
    * 
    * @param dave
    * @param message 
    */
-  public void processCommand(IDiscordClient dave, IMessage message);
+  public abstract void processCommand(IDiscordClient dave, IMessage message);
   
   /**
    * @return Returns a string containing the helptext for the specific implementation
    * of the command. The helptext string should start and end with a linebreak.
    */
-  public String getHelpText();
+  public abstract String getHelpText();
+  
+  /**
+   * @param user
+   * @param guild
+   * @return true if the user is a administrator in the guild 
+   */
+  public boolean isAdministrator(IUser user, IGuild guild) {
+    EnumSet<Permissions> permissions = user.getPermissionsForGuild(guild);
+    return permissions.contains(Permissions.ADMINISTRATOR);
+  }
 }
