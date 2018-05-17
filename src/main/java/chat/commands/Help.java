@@ -27,6 +27,7 @@ import chat.Commands;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IPrivateChannel;
 import static util.MessageUtils.sendMessage;
 
 /**
@@ -41,18 +42,19 @@ public class Help extends Command {
   @Override
   public void processCommand(IDiscordClient dave, IMessage message) {
     IChannel channel = message.getChannel();
-
     String content = "Dave will respond to a command if you "
-            + "mention him and then type in the command. \n";
+        + "mention him and then type in the command. \n\n"
+        + "Available commands: \n\n";
     
     for (Commands command : Commands.values()) {
-      content += command.getHandler().getHelpText();
+      content += "    " + command.toString() + "\n";
     }
 
-    content += "\nIf you want to request a new feature, or report a bug, "
+    content += "\nType \"@Dave <command> help\" to get detailed information.\n"
+            + "\nIf you want to request a new feature, or report a bug, "
             + "please use the issue tracker on github!\n" +
             "https://github.com/ceruzaa/Dave \n";
-    
+
     sendMessage(dave, channel, content);
   }
 

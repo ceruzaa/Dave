@@ -27,7 +27,9 @@ import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
+import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
+import static util.MessageUtils.sendMessage;
 
 /**
  * This class is used to setup handlers for various events that are broadcast
@@ -58,10 +60,20 @@ public class DiscordEventManager {
 
     if (message.getMentions().indexOf(_dave.getOurUser()) != -1) {
       String commandMessage = message.getContent().split(" ")[1];
+      String commandMessageAddition = "";
+
+      if (message.getContent().split(" ").length >= 3) {
+        commandMessageAddition = message.getContent().split(" ")[2];
+      }
 
       for (Commands command : Commands.values()) {
         if (command.equals(commandMessage)) {
-          command.getHandler().processCommand(_dave, message);
+          if (commandMessageAddition.equals("help")) {
+            sendMessage(_dave, message.getChannel(),
+                command.getHandler().getHelpText());
+          } else {
+             command.getHandler().processCommand(_dave, message);
+          }
         }
       }
     }
